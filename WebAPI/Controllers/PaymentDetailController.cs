@@ -27,19 +27,7 @@ namespace WebAPI.Controllers
             return await _context.PaymentDetails.ToListAsync();
         }
 
-        // GET: api/PaymentDetail/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<PaymentDetail>> GetPaymentDetail(int id)
-        {
-            var paymentDetail = await _context.PaymentDetails.FindAsync(id);
-
-            if (paymentDetail == null)
-            {
-                return NotFound();
-            }
-
-            return paymentDetail;
-        }
+      
 
         // PUT: api/PaymentDetail/5
         [HttpPut("{id}")]
