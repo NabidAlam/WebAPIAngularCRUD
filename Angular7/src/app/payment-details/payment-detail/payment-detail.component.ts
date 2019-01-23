@@ -34,15 +34,40 @@ export class PaymentDetailComponent implements OnInit {
 
   onSubmit(form: NgForm) {
    // tslint:disable-next-line:no-unused-expression
-   this.service.postPaymentDetail(form.value).subscribe(
-     res => {
-       this.resetForm(form);
-       this.toastr.success('Submitted successfully', 'Payment Detail Register');
-     },
-     err => {
-       console.log(err);
-     }
-   );
+
+if (this.service.formData.PId === 0) {
+  this.insertRecord(form);
+} else {
+  this.updateRecord(form);
+}
+
   }
+
+
+insertRecord(form: NgForm) {
+  this.service.postPaymentDetail().subscribe(
+    res => {
+      this.resetForm(form);
+      this.toastr.success('Submitted successfully', 'Payment Detail Register');
+      this.service.refreshList();
+    },
+    err => {
+      console.log(err);
+    }
+  );
+}
+
+updateRecord(form: NgForm) {
+  this.service.putPaymentDetail().subscribe(
+    res => {
+      this.resetForm(form);
+      this.toastr.info('Updated successfully', 'Payment Detail Register');
+      this.service.refreshList();
+    },
+    err => {
+      console.log(err);
+    }
+  );
+}
 
 }
